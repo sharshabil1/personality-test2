@@ -25,18 +25,43 @@
             left: 10px;
             right: 10px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Space between text and image */
             align-items: center;
             padding: 0 20px;
+            flex-wrap: nowrap; /* Prevent items from wrapping by default */
         }
+
+    
+
         .header .title {
             font-size: 18px;
             font-weight: bold;
             color: #007bff;
+            margin-bottom: 10px; /* Add spacing below for responsiveness */
+            text-align: center; /* Center the text for narrow screens */
+            margin: 0;
         }
+
         .header img {
-            height: 50px;
+            height: 50px; /* Adjust the height of the image */
+            max-width: 100%; /* Ensure it scales properly */
+            align-self: flex-end; /* Align the image to the right */
         }
+
+        /* Media Query for Small Screens */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: row; /* Keep text and image in one row */
+                justify-content: space-between; /* Ensure spacing on small screens */
+            }
+            .header .title {
+                font-size: 16px; /* Slightly smaller text on small screens */
+                text-align: left; /* Align text to the left */
+            }
+            .header img {
+                height: 40px; /* Reduce image size for smaller screens */
+            }
+    }
 
         .container {
             max-width: 600px;
