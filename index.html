@@ -158,6 +158,18 @@
             font-weight: bold;
             margin: 20px 0;
         }
+
+        .result-container h1 {
+            font-size: 24px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .result-container h4 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
         @keyframes fadeInResult {
             from {
                 opacity: 0;
@@ -173,7 +185,7 @@
 <body>
     <!-- Header Section -->
     <div class="header">
-        <div class="title">College of Nursing</div>
+        <div class="title">Nurse222</div>
         <img src="image.png" alt="IAU Logo">
     </div>
 
@@ -304,23 +316,43 @@ const questions = [
         }
 
         function calculateResult() {
-            let maxScore = 0;
-            let resultType = '';
-            for (const [key, value] of Object.entries(scores)) {
-                if (value > maxScore) {
-                    maxScore = value;
-                    resultType = key;
-                }
-            }
-            const resultText = {
-                a: 'تجنب (Avoidance): تفضل الابتعاد عن النزاعات.',
-                b: 'تنافس (Competing): تركز على الفوز وإثبات وجهة نظرك.',
-                c: 'تسوية (Compromising): تبحث عن حلول وسطية.',
-                d: 'تعاون (Collaborating): تحرص على الفهم المشترك وإيجاد الحل المثالي.',
-                e: 'تنازل (Accommodating): تميل للتضحية بمصلحتك لتجنب النزاع.'
-            };
-            resultDiv.innerText = resultText[resultType];
+    let maxScore = 0;
+    let resultType = '';
+    let totalAnswers = 0;
+
+    // Calculate total answers
+    for (const value of Object.values(scores)) {
+        totalAnswers += value;
+    }
+
+    // Find the highest score and determine the result type
+    for (const [key, value] of Object.entries(scores)) {
+        if (value > maxScore) {
+            maxScore = value;
+            resultType = key;
         }
+    }
+
+    const resultText = {
+        a: 'تجنب (Avoidance): تفضل الابتعاد عن النزاعات.',
+        b: 'تنافس (Competing): تركز على الفوز وإثبات وجهة نظرك.',
+        c: 'تسوية (Compromising): تبحث عن حلول وسطية.',
+        d: 'تعاون (Collaborating): تحرص على الفهم المشترك وإيجاد الحل المثالي.',
+        e: 'تنازل (Accommodating): تميل للتضحية بمصلحتك لتجنب النزاع.'
+    };
+
+    // Create result HTML
+    let percentagesHTML = '';
+    for (const [key, value] of Object.entries(scores)) {
+        const percentage = ((value / totalAnswers) * 100).toFixed(0);
+        percentagesHTML += `<h4>${percentage}% ${resultText[key]}</h4>`;
+    }
+
+    resultDiv.innerHTML = `
+        <h1>${resultText[resultType]}</h1>
+        ${percentagesHTML}
+    `;
+}
 
         nextButton.addEventListener('click', () => {
             const selectedAnswer = document.querySelector(
