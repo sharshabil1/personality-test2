@@ -163,13 +163,17 @@
             font-size: 24px;
             color: #4CAF50;
             margin-bottom: 20px;
+            text-align: center; /* Keep main result centered */
         }
 
         .result-container h4 {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 10px;
+            font-size: 14px; /* Smaller font size */
+            color: rgba(0, 0, 0, 0.6); /* Transparent text */
+            margin-bottom: 8px;
+            font-weight: normal;
+            text-align: right; /* Align text to the right */
         }
+
         @keyframes fadeInResult {
             from {
                 opacity: 0;
@@ -333,12 +337,20 @@ const questions = [
         }
     }
 
-    const resultText = {
+    const resultFullText = {
         a: 'تجنب (Avoidance): تفضل الابتعاد عن النزاعات.',
         b: 'تنافس (Competing): تركز على الفوز وإثبات وجهة نظرك.',
         c: 'تسوية (Compromising): تبحث عن حلول وسطية.',
         d: 'تعاون (Collaborating): تحرص على الفهم المشترك وإيجاد الحل المثالي.',
         e: 'تنازل (Accommodating): تميل للتضحية بمصلحتك لتجنب النزاع.'
+    };
+
+    const resultText = {
+        a: 'تجنب (Avoidance)',
+        b: 'تنافس (Competing)',
+        c: 'تسوية (Compromising)',
+        d: 'تعاون (Collaborating)',
+        e: 'تنازل (Accommodating)'
     };
 
     // Create result HTML
@@ -349,10 +361,13 @@ const questions = [
     }
 
     resultDiv.innerHTML = `
-        <h1>${resultText[resultType]}</h1>
+        <h1>${resultFullText[resultType]}</h1>
         ${percentagesHTML}
     `;
 }
+
+
+
 
         nextButton.addEventListener('click', () => {
             const selectedAnswer = document.querySelector(
